@@ -7,7 +7,7 @@ pub enum Level {
     Success,
     Warning,
     Dark,
-    Custom { text: ColorPair, bg: ColorPair },
+    Custom { text: ColorPair, bg: ColorPair, border: Color },
 }
 
 impl Level {
@@ -30,6 +30,17 @@ impl Level {
             Level::Warning => ColorPair::new(Color::Yellow100, Color::Yellow200),
             Level::Dark => ColorPair::new(Color::Gray100, Color::Gray200),
             Level::Custom { bg, .. } => bg,
+        }
+    }
+
+    pub fn border(&self) -> Color {
+        match *self {
+            Level::Info => Color::Blue500,
+            Level::Danger => Color::Red500,
+            Level::Success => Color::Green500,
+            Level::Warning => Color::Yellow500,
+            Level::Dark => Color::Gray500,
+            Level::Custom { border, .. } => border,
         }
     }
 }

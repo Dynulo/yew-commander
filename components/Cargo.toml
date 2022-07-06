@@ -7,3 +7,6 @@ edition = "2021"
 config = { path = "../config"}
 icons = { path = "../icons"}
 yew = { git = "https://github.com/yewstack/yew.git", features = ["csr"] }
+
+[build-dependencies]
+config = { path = "../config" }

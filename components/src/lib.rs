@@ -1,4 +1,6 @@
 mod alert;
+use std::io::Read;
+
 pub use alert::*;
 
 pub fn css() -> String {
@@ -13,19 +15,29 @@ pub fn css() -> String {
 pub fn build_tailwind() {
     let out_dir = std::env::var_os("OUT_DIR").unwrap();
     let dest_path = std::path::Path::new(&out_dir).join("generated.css");
+
+    let out_dir = std::env::var_os("OUT_DIR").unwrap();
+    let local_path = std::path::Path::new(&out_dir).join("local.css");
+    std::process::Command::new("tailwindcss")
+        .arg("-c")
+        .arg("./tailwind.config.js")
+        .arg("-o")
+        .arg(&local_path)
+        .output()
+        .expect("failed to execute process");
+    let mut buffer = String::new();
+    std::fs::File::open(&local_path).unwrap().read_to_string(&mut buffer).unwrap();
+    buffer.push_str(&css());
     std::fs::write(
         &dest_path,
-        "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n"
+        buffer,
     ).unwrap();
-    std::fs::write(
-        &dest_path,
-        css(),
-    ).unwrap();
+    
     std::process::Command::new("tailwindcss")
         .arg("-i")
         .arg(&dest_path)
-        .arg("--content")
-        .arg("./src/**/*.{html,rs}")
+        .arg("-c")
+        .arg("./tailwind.config.js")
         .arg("-o")
         .arg("./tailwind.css")
         .arg("--minify")

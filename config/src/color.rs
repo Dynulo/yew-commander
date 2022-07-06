@@ -69,6 +69,24 @@ macro_rules! color_hex {
                     )*
                 }
             }
+
+            pub fn every_color() -> String {
+                let mut colors = String::new();
+                $(
+                    let name = stringify!($name).to_lowercase();
+                    for p in &["text", "bg", "border", "dark:text", "dark:bg"] {
+                        for i in &[50, 100, 200, 300, 400, 500, 600, 700, 800, 900] {
+                            colors.push_str(p);
+                            colors.push_str("-");
+                            colors.push_str(&name);
+                            colors.push_str("-");
+                            colors.push_str(i.to_string().as_str());
+                            colors.push_str(" ");
+                        }
+                    }
+                )*
+                colors
+            }
         }
     };
 }
@@ -79,6 +97,18 @@ color!(
 );
 
 impl Color {
+    pub fn as_text_class(&self) -> String {
+        format!("text-{}", self.as_class())
+    }
+
+    pub fn as_bg_class(&self) -> String {
+        format!("bg-{}", self.as_class())
+    }
+
+    pub fn as_border_class(&self) -> String {
+        format!("border-{}", self.as_class())
+    }
+
     color_hex! {
         Slate => {
             "#F8FAFC",
@@ -360,15 +390,22 @@ impl ColorPair {
 
     pub fn as_text_classes(&self) -> Classes {
         classes!(
-            format!("text-{}", self.light.as_class()),
-            format!("dark:text-{}", self.dark.as_class())
+            self.light.as_text_class(),
+            format!("dark:{}", self.dark.as_text_class()),
         )
     }
 
     pub fn as_bg_classes(&self) -> Classes {
         classes!(
-            format!("bg-{}", self.light.as_class()),
-            format!("dark:bg-{}", self.dark.as_class())
+            self.light.as_bg_class(),
+            format!("dark:{}", self.dark.as_bg_class()),
+        )
+    }
+
+    pub fn as_border_classes(&self) -> Classes {
+        classes!(
+            self.light.as_border_class(),
+            format!("dark:{}", self.dark.as_border_class()),
         )
     }
 }
