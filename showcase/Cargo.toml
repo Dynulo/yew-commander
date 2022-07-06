@@ -1,0 +1,14 @@
+[package]
+name = "showcase"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+components = { path = "../components" }
+config = { path = "../config" }
+yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
+yew-router = { git = "https://github.com/yewstack/yew.git" }
+
+[build-dependencies]
+components = { path = "../components" }

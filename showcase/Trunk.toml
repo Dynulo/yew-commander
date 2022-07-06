@@ -1,0 +1,3 @@
+[watch]
+ignore = ["tailwind.css"]
+watch = ["../"]

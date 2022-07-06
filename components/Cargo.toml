@@ -1,0 +1,9 @@
+[package]
+name = "components"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+config = { path = "../config"}
+icons = { path = "../icons"}
+yew = { git = "https://github.com/yewstack/yew.git", features = ["csr"] }

@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "components",
+    "config",
+    "icons",
+    "showcase",
+]
