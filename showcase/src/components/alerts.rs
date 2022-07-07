@@ -1,4 +1,4 @@
-use components::Alert;
+use commander_components::Alert;
 use config::{Color, ColorPair, Level};
 use yew::prelude::*;
 

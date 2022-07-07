@@ -38,7 +38,7 @@ pub fn Alert(props: &AlertProps) -> Html {
     class.extend(props.level.text().as_text_classes());
     class.extend(props.level.bg().as_bg_classes());
     html! {
-        <div {class} role="alert">
+        <div { class } role="alert">
             { label } { &props.text }
             { children }
         </div>

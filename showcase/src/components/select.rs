@@ -1,4 +1,4 @@
-use components::Select;
+use commander_components::Select;
 use yew::prelude::*;
 
 #[function_component]

@@ -1,3 +1,3 @@
 fn main() {
-    components::build_tailwind();
+    commander_components::build_tailwind();
 }

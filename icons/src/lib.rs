@@ -14,7 +14,7 @@ impl Icon for SrcIcon {
     fn render(&self, width: Width, height: Height) -> VNode {
         let class = classes!(width.class(), height.class());
         html! {
-            <img {class} src={ self.src.clone() } />
+            <img { class } src={ self.src.clone() } />
         }
     }
 }

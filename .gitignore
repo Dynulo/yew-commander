@@ -1,3 +1,4 @@
 tailwind.css
 target/
 dist/
+Cargo.lock

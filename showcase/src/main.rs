@@ -18,7 +18,7 @@ enum Route {
 fn app() -> Html {
     html! {
         <BrowserRouter>
-            <Switch<Route> render={switch} />
+            <Switch<Route> render={ switch } />
         </BrowserRouter>
     }
 }
