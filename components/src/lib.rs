@@ -2,6 +2,8 @@ use std::io::Read;
 
 mod alert;
 pub use alert::*;
+mod menu;
+pub use menu::*;
 mod select;
 pub use select::*;
 

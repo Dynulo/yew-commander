@@ -73,7 +73,7 @@ where
                         index = Some(index.unwrap() - 1);
                     }
                 }
-                "Esc" | "Ecape" | "Enter" | "Space" => {
+                "Esc" | "Escape" | "Space" => {
                     reset_filter.reset();
                     expanded.set(false);
                 }
@@ -218,7 +218,7 @@ where
                 </span>
             </button>
             <ul class={ dropdown_class }
-                tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                tabindex="-1" role="listbox">
                 { search }
                 { options }
             </ul>

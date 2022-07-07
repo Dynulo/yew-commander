@@ -6,7 +6,7 @@ pub fn render() -> Html {
     html! {
             <div class="p-4">
                 <h1 class="text-2xl">{ "Alert" }</h1>
-                <Alert level={ Level::Info } text={ "Info Alert" } />
+                <Alert text={ "Info Alert" } />
                 <Alert level={ Level::Warning } text={ "Warning Alert" } />
                 <Alert level={ Level::Danger } text={ "Danger Alert" } />
                 <Alert level={ Level::Success } text={ "Success Alert" } />
@@ -18,7 +18,7 @@ pub fn render() -> Html {
                 } } text={ "Custom Alert" } />
                 <pre>
                     <code>
-    { r#"<Alert level={ Level::Info } text={ "Info Alert" } />
+{ r#"<Alert text={ "Info Alert" } />
 <Alert level={ Level::Warning } text={ "Warning Alert" } />
 <Alert level={ Level::Danger } text={ "Danger Alert" } />
 <Alert level={ Level::Success } text={ "Success Alert" } />

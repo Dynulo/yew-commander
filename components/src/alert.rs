@@ -4,6 +4,7 @@ use yew::prelude::*;
 
 #[derive(Debug, Clone, PartialEq, Properties)]
 pub struct AlertProps {
+    #[prop_or_default]
     pub level: Level,
     pub label: Option<String>,
     pub text: String,

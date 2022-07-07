@@ -1,7 +1,8 @@
 use crate::{Color, ColorPair};
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub enum Level {
+    #[default]
     Info,
     Danger,
     Success,
