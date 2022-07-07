@@ -10,6 +10,8 @@ enum Route {
     Home,
     #[at("/alerts")]
     Alerts,
+    #[at("/select")]
+    Select,
 }
 
 #[function_component(App)]
@@ -25,6 +27,7 @@ fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => html! { <h1>{ "Home" }</h1> },
         Route::Alerts => components::alerts::render(),
+        Route::Select => html! { <components::select::Render /> },
     }
 }
 

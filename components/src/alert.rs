@@ -1,4 +1,4 @@
-use config::{Level, Width, Height};
+use config::{Height, Level, Width};
 use icons::Icon;
 use yew::prelude::*;
 
@@ -17,20 +17,24 @@ pub struct AlertProps {
 
 #[function_component]
 pub fn Alert(props: &AlertProps) -> Html {
-    let label = props.label.clone().map(|label| html! {
-        <span class="font-medium mr-2">{ label }</span>
-    }).unwrap_or_default();
+    let label = props
+        .label
+        .clone()
+        .map(|label| {
+            html! {
+                <span class="font-medium mr-2">{ label }</span>
+            }
+        })
+        .unwrap_or_default();
     let children = props.children.clone().unwrap_or_default();
-    let mut class = classes!(
-        "p-4",
-        "mb-4",
-        "text-sm"
-    );
+    let mut class = classes!("p-4", "mb-4", "text-sm");
     if props.border {
         class.push("border-t-4");
         class.push(props.level.border().as_border_class());
     }
-    if props.rounded { class.push("rounded-lg") }
+    if props.rounded {
+        class.push("rounded-lg")
+    }
     class.extend(props.level.text().as_text_classes());
     class.extend(props.level.bg().as_bg_classes());
     html! {
@@ -58,4 +62,3 @@ where
         { props.icon.render(Width::W5, Height::H5) }
     }
 }
-    

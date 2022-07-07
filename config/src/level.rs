@@ -7,7 +7,11 @@ pub enum Level {
     Success,
     Warning,
     Dark,
-    Custom { text: ColorPair, bg: ColorPair, border: Color },
+    Custom {
+        text: ColorPair,
+        bg: ColorPair,
+        border: Color,
+    },
 }
 
 impl Level {

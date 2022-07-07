@@ -62,7 +62,9 @@ version = "0.1.0"
 dependencies = [
  "config",
  "icons",
+ "web-sys",
  "yew",
+ "yew-hooks",
 ]
 
 [[package]]
@@ -145,6 +147,25 @@ checksum = "21163e139fa306126e6eedaf49ecdb4588f939600f0b1e770f4205ee4b7fa868"
 
 [[package]]
 name = "gloo"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "03e691526c3972d1fda35453f6df29925edea014dc75a2dede7661527e9439f0"
+dependencies = [
+ "gloo-console",
+ "gloo-dialogs",
+ "gloo-events",
+ "gloo-file",
+ "gloo-history",
+ "gloo-net",
+ "gloo-render",
+ "gloo-storage",
+ "gloo-timers",
+ "gloo-utils",
+ "gloo-worker 0.1.2",
+]
+
+[[package]]
+name = "gloo"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3a4bef6b277b3ab073253d4bca60761240cf8d6998f4bd142211957b69a61b20"
@@ -159,7 +180,7 @@ dependencies = [
  "gloo-storage",
  "gloo-timers",
  "gloo-utils",
- "gloo-worker",
+ "gloo-worker 0.2.0",
 ]
 
 [[package]]
@@ -287,6 +308,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "929c53c913bb7a88d75d9dc3e9705f963d8c2b9001510b25ddaf671b9fb7049d"
 dependencies = [
  "js-sys",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
+name = "gloo-worker"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "09110b5555bcafe508cee0fb94308af9aac7a85f980d3c88b270d117c6c6911d"
+dependencies = [
+ "anymap2",
+ "bincode",
+ "gloo-console",
+ "gloo-utils",
+ "js-sys",
+ "serde",
+ "slab",
  "wasm-bindgen",
  "web-sys",
 ]
@@ -732,7 +770,7 @@ version = "0.19.3"
 source = "git+https://github.com/yewstack/yew/#11424bd840344e25db376a0c4997d0edb21d9238"
 dependencies = [
  "console_error_panic_hook",
- "gloo",
+ "gloo 0.8.0",
  "gloo-utils",
  "implicit-clone",
  "indexmap",
@@ -747,6 +785,21 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "yew-macro",
+]
+
+[[package]]
+name = "yew-hooks"
+version = "0.1.56"
+source = "git+https://github.com/jetli/yew-hooks#3a8dd7cd5ae8edad1d1be46156597bf4a7ba8d1e"
+dependencies = [
+ "gloo 0.7.0",
+ "js-sys",
+ "log",
+ "serde",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "yew",
 ]
 
 [[package]]
@@ -768,7 +821,7 @@ name = "yew-router"
 version = "0.16.0"
 source = "git+https://github.com/yewstack/yew/#11424bd840344e25db376a0c4997d0edb21d9238"
 dependencies = [
- "gloo",
+ "gloo 0.8.0",
  "js-sys",
  "route-recognizer",
  "serde",

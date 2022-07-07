@@ -1,4 +1,4 @@
-use config::{Width, Height};
+use config::{Height, Width};
 use yew::{prelude::*, virtual_dom::VNode};
 
 pub trait Icon: PartialEq {
