@@ -17,6 +17,7 @@ macro_rules! color {
                     [<$name 800>],
                     [<$name 900>],
                 )*
+                White,
             }
         }
     };
@@ -50,6 +51,7 @@ macro_rules! color_hex {
                         Color::[<$name 800>] => $a800,
                         Color::[<$name 900>] => $a900,
                     )*
+                    Color::White => "#FFFFFF",
                 }.to_string()
             }
 
@@ -67,6 +69,7 @@ macro_rules! color_hex {
                         Color::[<$name 800>] => format!("{}-800", stringify!($name).to_lowercase()),
                         Color::[<$name 900>] => format!("{}-900", stringify!($name).to_lowercase()),
                     )*
+                    Color::White => "white".to_string(),
                 }
             }
 

@@ -18,11 +18,19 @@ pub fn build_tailwind() {
     let out_dir = std::env::var_os("OUT_DIR").unwrap();
     let dest_path = std::path::Path::new(&out_dir).join("generated.css");
 
+    // config colors
+    let color_path = std::path::Path::new(&out_dir).join("colors.html");
+    std::fs::write(
+        &color_path,
+        format!("<p class=\"{}\"></p>", config::Color::every_color()),
+    )
+    .unwrap();
+
     let out_dir = std::env::var_os("OUT_DIR").unwrap();
     let local_path = std::path::Path::new(&out_dir).join("local.css");
     std::process::Command::new("tailwindcss")
         .arg("--content")
-        .arg("./src/**/*.{html,rs},./index.html")
+        .arg(format!("{}/*.html,./src/**/*.{{html,rs}},./index.html", out_dir.to_string_lossy()))
         .arg("-o")
         .arg(&local_path)
         .output()
@@ -32,14 +40,13 @@ pub fn build_tailwind() {
         .unwrap()
         .read_to_string(&mut buffer)
         .unwrap();
-    buffer.push_str(&css());
-    std::fs::write(&dest_path, buffer).unwrap();
+    std::fs::write(&dest_path, format!("@tailwind base;\n@tailwind components;\n@tailwind utilities;\n{}\n{}", css(), buffer)).unwrap();
 
     std::process::Command::new("tailwindcss")
         .arg("-i")
         .arg(&dest_path)
         .arg("--content")
-        .arg("./src/**/*.{html,rs},./index.html")
+        .arg(format!("{}/*,./src/**/*.{{html,rs}},./index.html", out_dir.to_string_lossy()))
         .arg("-o")
         .arg("./tailwind.css")
         .arg("--minify")

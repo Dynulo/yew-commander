@@ -91,7 +91,7 @@ where
         "mt-1",
         "w-full",
         "bg-white",
-        "dark:bg-gray-700",
+        "dark:bg-slate-700",
         "shadow-lg",
         "max-h-56",
         "rounded-md",
@@ -121,7 +121,9 @@ where
         if props.filter && !filter.is_empty() && !option.label().contains(&*filter) {
             return VNode::default();
         }
+        let mut class = classes!("cursor-default", "select-none", "relative", "py-2", "pl-3", "pr-9");
         let check = if *selected == Some(option.to_owned()) {
+            class.extend(classes!("bg-slate-100", "dark:bg-slate-800", "text-slate-900", "dark:text-slate-200"));
             html! {
                 <span class="text-indigo-600 dark:text-indigo-300 absolute inset-y-0 right-0 flex items-center pr-4">
                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -151,7 +153,6 @@ where
                 onchange.emit(option.clone());
             })
         };
-        let class = classes!("dark:bg-gray-700", "dark:text-white", "cursor-default", "select-none", "relative", "py-2", "pl-3", "pr-9");
         html! {
             <li
                 onclick = { select_handler }
@@ -192,7 +193,7 @@ where
 
     let search = if props.filter {
         html! {
-            <input class="focus:border-current focus:ring-0 focus:outline-none  block w-full py-2 pl-3 text-sm leading-5 font-medium rounded-md dark:bg-gray-700 dark:text-white" type="text" placeholder="Search..." value={ filter.to_string() } oninput={ filter_handler } />
+            <input class="focus:border-current focus:ring-0 focus:outline-none  block w-full py-2 pl-3 text-sm leading-5 font-medium rounded-md dark:bg-slate-700" type="text" placeholder="Search..." value={ filter.to_string() } oninput={ filter_handler } />
         }
     } else {
         VNode::default()
@@ -202,13 +203,13 @@ where
         <div class="mt-1 relative" ref={ node }>
             <button type="button"
                 onclick = { expand_handler }
-                class="relative w-full rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default sm:text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="relative w-full rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default sm:text-sm bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 aria-haspopup="listbox">
                 <span class="flex items-center">
                     { current }
                 </span>
                 <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                    <svg class="h-5 w-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                         fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd"
                             d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
