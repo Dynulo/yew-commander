@@ -32,7 +32,10 @@ pub fn build_tailwind() {
     let local_path = std::path::Path::new(&out_dir).join("local.css");
     std::process::Command::new("tailwindcss")
         .arg("--content")
-        .arg(format!("{}/*.html,./src/**/*.{{html,rs}},./index.html", out_dir.to_string_lossy()))
+        .arg(format!(
+            "{}/*.html,./src/**/*.{{html,rs}},./index.html",
+            out_dir.to_string_lossy()
+        ))
         .arg("-o")
         .arg(&local_path)
         .output()
@@ -42,13 +45,24 @@ pub fn build_tailwind() {
         .unwrap()
         .read_to_string(&mut buffer)
         .unwrap();
-    std::fs::write(&dest_path, format!("@tailwind base;\n@tailwind components;\n@tailwind utilities;\n{}\n{}", css(), buffer)).unwrap();
+    std::fs::write(
+        &dest_path,
+        format!(
+            "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n{}\n{}",
+            css(),
+            buffer
+        ),
+    )
+    .unwrap();
 
     std::process::Command::new("tailwindcss")
         .arg("-i")
         .arg(&dest_path)
         .arg("--content")
-        .arg(format!("{}/*,./src/**/*.{{html,rs}},./index.html", out_dir.to_string_lossy()))
+        .arg(format!(
+            "{}/*,./src/**/*.{{html,rs}},./index.html",
+            out_dir.to_string_lossy()
+        ))
         .arg("-o")
         .arg("./tailwind.css")
         .arg("--minify")
