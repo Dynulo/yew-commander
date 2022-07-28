@@ -31,11 +31,7 @@ pub fn build_tailwind(src: PathBuf) {
     )
     .unwrap();
     let source_path = std::path::Path::new(&out_dir).join("source.rs");
-    std::fs::write(
-        &source_path,
-        source(),
-    )
-    .unwrap();
+    std::fs::write(&source_path, source()).unwrap();
 
     std::process::Command::new("tailwindcss")
         .arg("--content")
@@ -50,6 +46,5 @@ pub fn build_tailwind(src: PathBuf) {
         .output()
         .expect("failed to execute process");
 
-    
-        println!("cargo:rerun-if-changed={}", src.display());
+    println!("cargo:rerun-if-changed={}", src.display());
 }
