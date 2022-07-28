@@ -8,3 +8,6 @@ casey = "0.3"
 paste = "1"
 const-str = { version = "0.4", features = ["case"] }
 yew = { git = "https://github.com/yewstack/yew.git", features = ["csr"] }
+
+[build-dependencies]
+walkdir = "2"

@@ -1,24 +1,27 @@
-use std::io::Read;
+use std::path::PathBuf;
+
+pub use icons;
 
 mod alert;
 pub use alert::*;
+mod button;
+pub use button::*;
 mod menu;
 pub use menu::*;
 mod select;
 pub use select::*;
 
-pub fn css() -> String {
+pub fn source() -> String {
     let out = vec![
-        icons::css(),
-        config::css(),
-        include_str!(concat!(env!("OUT_DIR"), "/generated.css")),
+        icons::source(),
+        config::source(),
+        include_str!(concat!(env!("OUT_DIR"), "/all.rs")),
     ];
     out.join("\n")
 }
 
-pub fn build_tailwind() {
+pub fn build_tailwind(src: PathBuf) {
     let out_dir = std::env::var_os("OUT_DIR").unwrap();
-    let dest_path = std::path::Path::new(&out_dir).join("generated.css");
 
     // config colors
     let color_path = std::path::Path::new(&out_dir).join("colors.html");
@@ -27,45 +30,26 @@ pub fn build_tailwind() {
         format!("<p class=\"{}\"></p>", config::Color::every_color()),
     )
     .unwrap();
-
-    let out_dir = std::env::var_os("OUT_DIR").unwrap();
-    let local_path = std::path::Path::new(&out_dir).join("local.css");
-    std::process::Command::new("tailwindcss")
-        .arg("--content")
-        .arg(format!(
-            "{}/*.html,./src/**/*.{{html,rs}},./index.html",
-            out_dir.to_string_lossy()
-        ))
-        .arg("-o")
-        .arg(&local_path)
-        .output()
-        .expect("failed to execute process");
-    let mut buffer = String::new();
-    std::fs::File::open(&local_path)
-        .unwrap()
-        .read_to_string(&mut buffer)
-        .unwrap();
+    let source_path = std::path::Path::new(&out_dir).join("source.rs");
     std::fs::write(
-        &dest_path,
-        format!(
-            "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n{}\n{}",
-            css(),
-            buffer
-        ),
+        &source_path,
+        source(),
     )
     .unwrap();
 
     std::process::Command::new("tailwindcss")
-        .arg("-i")
-        .arg(&dest_path)
         .arg("--content")
         .arg(format!(
-            "{}/*,./src/**/*.{{html,rs}},./index.html",
-            out_dir.to_string_lossy()
+            "{}/*,{}/**/*.{{html,rs}},./index.html",
+            out_dir.to_string_lossy(),
+            src.display(),
         ))
         .arg("-o")
         .arg("./tailwind.css")
         .arg("--minify")
         .output()
         .expect("failed to execute process");
+
+    
+        println!("cargo:rerun-if-changed={}", src.display());
 }

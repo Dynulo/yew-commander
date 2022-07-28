@@ -1,6 +1,14 @@
 use config::{Height, Width};
 use yew::{prelude::*, virtual_dom::VNode};
 
+mod brands;
+pub use brands::*;
+pub mod spinner;
+
+pub trait AsSvg {
+    fn as_svg(&self) -> VNode;
+}
+
 pub trait Icon: PartialEq {
     fn render(&self, width: Width, height: Height) -> VNode;
 }
@@ -19,6 +27,6 @@ impl Icon for SrcIcon {
     }
 }
 
-pub fn css() -> &'static str {
-    include_str!(concat!(env!("OUT_DIR"), "/generated.css"))
+pub fn source() -> &'static str {
+    include_str!(concat!(env!("OUT_DIR"), "/all.rs"))
 }

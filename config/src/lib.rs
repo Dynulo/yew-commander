@@ -7,6 +7,6 @@ pub use level::*;
 mod size;
 pub use size::*;
 
-pub fn css() -> &'static str {
-    include_str!(concat!(env!("OUT_DIR"), "/generated.css"))
+pub fn source() -> &'static str {
+    include_str!(concat!(env!("OUT_DIR"), "/all.rs"))
 }

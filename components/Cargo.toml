@@ -6,9 +6,10 @@ edition = "2021"
 [dependencies]
 config = { path = "../config"}
 icons = { path = "../icons"}
+web-sys = { version = "0.3", features = ["HtmlInputElement"] }
 yew = { git = "https://github.com/yewstack/yew.git", features = ["csr"] }
 yew-hooks = { git = "https://github.com/jetli/yew-hooks" }
-web-sys = { version = "0.3", features = ["HtmlInputElement"] }
 
 [build-dependencies]
 config = { path = "../config" }
+walkdir = "2"

@@ -91,16 +91,14 @@ where
         "mt-1",
         "w-full",
         "bg-white",
-        "dark:bg-slate-700",
+        "dark:bg-gray-70000",
         "shadow-lg",
-        "max-h-56",
         "rounded-md",
         "py-1",
         "text-base",
         "ring-1",
         "ring-black",
         "ring-opacity-5",
-        "overflow-auto",
         "focus:outline-none",
         "sm:text-sm",
         "transition",
@@ -118,12 +116,12 @@ where
     };
 
     let options = props.options.clone().into_iter().enumerate().map(|(i, option)| {
-        if props.filter && !filter.is_empty() && !option.label().contains(&*filter) {
+        if props.filter && !filter.is_empty() && !option.label().to_lowercase().contains(&*filter.to_lowercase()) {
             return VNode::default();
         }
         let mut class = classes!("cursor-default", "select-none", "relative", "py-2", "pl-3", "pr-9");
         let check = if *selected == Some(option.to_owned()) {
-            class.extend(classes!("bg-slate-100", "dark:bg-slate-800", "text-slate-900", "dark:text-slate-200"));
+            class.extend(classes!("bg-gray-100", "dark:bg-gray-800", "text-gray-900", "dark:text-gray-200"));
             html! {
                 <span class="text-indigo-600 dark:text-indigo-300 absolute inset-y-0 right-0 flex items-center pr-4">
                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -193,10 +191,21 @@ where
 
     let search = if props.filter {
         html! {
-            <input class="focus:border-current focus:ring-0 focus:outline-none  block w-full py-2 pl-3 text-sm leading-5 font-medium rounded-md dark:bg-slate-700" type="text" placeholder="Search..." value={ filter.to_string() } oninput={ filter_handler } />
+            <input class="focus:border-current focus:ring-0 focus:outline-none  block w-full py-2 pl-3 text-sm leading-5 font-medium rounded-md dark:bg-gray-70000" type="text" placeholder="Search..." value={ filter.to_string() } oninput={ filter_handler } />
         }
     } else {
         VNode::default()
+    };
+
+    let list = if options.is_empty() {
+        html! {}
+    } else {
+        html! {
+            <ul class="overflow-auto max-h-56"
+                tabindex="-1" role="listbox">
+                { options }
+            </ul>
+        }
     };
 
     html! {
@@ -209,7 +218,7 @@ where
                     { current }
                 </span>
                 <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                    <svg class="h-5 w-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                         fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd"
                             d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
@@ -217,11 +226,10 @@ where
                     </svg>
                 </span>
             </button>
-            <ul class={ dropdown_class }
-                tabindex="-1" role="listbox">
+            <div class={ dropdown_class }>
                 { search }
-                { options }
-            </ul>
+                { list }
+            </div>
         </div>
     }
 }

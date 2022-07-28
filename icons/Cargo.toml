@@ -6,3 +6,6 @@ edition = "2021"
 [dependencies]
 config = { path = "../config" }
 yew = { git = "https://github.com/yewstack/yew.git", features = ["csr"] }
+
+[build-dependencies]
+walkdir = "2"

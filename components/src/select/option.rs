@@ -27,7 +27,7 @@ where
 
 impl<O> SelectOption for (O, String)
 where
-    O: ToString + PartialEq + Clone,
+    O: PartialEq + Clone,
 {
     type Value = O;
 
@@ -42,7 +42,7 @@ where
 
 impl<O> SelectOption for (O, String, VNode)
 where
-    O: ToString + PartialEq + Clone,
+    O: PartialEq + Clone,
 {
     type Value = O;
 
