@@ -46,7 +46,7 @@ pub fn Alert(props: &AlertProps) -> Html {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Properties)]
+#[derive(Debug, Clone, PartialEq, Eq, Properties)]
 pub struct AlertIconProps<I>
 where
     I: Icon,

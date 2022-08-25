@@ -8,7 +8,7 @@ macro_rules! size {
                 )*
             }
             impl $name {
-                pub fn class(&self) -> &'static str {
+                pub const fn class(&self) -> &'static str {
                     use $name::*;
                     match *self {
                         $(

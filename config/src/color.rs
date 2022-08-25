@@ -3,7 +3,7 @@ use yew::prelude::*;
 macro_rules! color {
     ($($name:ident),*) => {
         paste::item! {
-            #[derive(Clone, Copy, Debug, PartialEq)]
+            #[derive(Clone, Copy, Debug, PartialEq, Eq)]
             pub enum Color {
                 $(
                     [<$name 50>],
@@ -380,15 +380,15 @@ impl Color {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct ColorPair {
     light: Color,
     dark: Color,
 }
 
 impl ColorPair {
-    pub fn new(light: Color, dark: Color) -> ColorPair {
-        ColorPair { light, dark }
+    pub const fn new(light: Color, dark: Color) -> Self {
+        Self { light, dark }
     }
 
     pub fn as_text_classes(&self) -> Classes {

@@ -13,7 +13,7 @@ pub trait Icon: PartialEq {
     fn render(&self, width: Width, height: Height) -> VNode;
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SrcIcon {
     src: String,
 }
@@ -27,6 +27,6 @@ impl Icon for SrcIcon {
     }
 }
 
-pub fn source() -> &'static str {
+pub const fn source() -> &'static str {
     include_str!(concat!(env!("OUT_DIR"), "/all.rs"))
 }

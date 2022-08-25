@@ -2,7 +2,7 @@ use yew::prelude::*;
 
 use super::AsSvg;
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum Brand {
     Discord,
 }
@@ -10,7 +10,7 @@ pub enum Brand {
 impl Brand {
     pub fn color_classes(&self) -> Classes {
         match self {
-            Brand::Discord => classes!(
+            Self::Discord => classes!(
                 "bg-indigo-600",
                 "hover:bg-indigo-700",
                 "focus:outline-none",
@@ -25,7 +25,7 @@ impl Brand {
 impl AsSvg for Brand {
     fn as_svg(&self) -> Html {
         match self {
-            Brand::Discord => html! {
+            Self::Discord => html! {
                 <svg
                     aria-hidden="true"
                     role="img"

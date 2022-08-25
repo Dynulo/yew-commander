@@ -15,6 +15,7 @@ pub fn button(props: &ButtonProps) -> Html {
         "px-4",
         "border",
         "border-gray-300",
+        "dark:border-gray-900",
         "rounded-md",
         "shadow-sm",
         "text-sm",
@@ -24,13 +25,10 @@ pub fn button(props: &ButtonProps) -> Html {
     if let Some(prop_classes) = &props.class {
         classes.extend(prop_classes.to_owned());
     }
-    let inner = {
-        if let Some(inner) = &props.children {
-            inner.clone()
-        } else {
-            ChildrenRenderer::new(vec![])
-        }
-    };
+    let inner = props
+        .children
+        .as_ref()
+        .map_or_else(|| ChildrenRenderer::new(vec![]), |inner| inner.clone());
     html! {
         <button class={ classes }>
             { inner }

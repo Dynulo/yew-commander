@@ -175,19 +175,22 @@ where
         })
     };
 
-    let current = if let Some(selected) = &*selected {
-        let icon = selected.icon().unwrap_or_default();
-        html! {
-            <>
-                { icon }
-                <span class="ml-3 block truncate"> { selected.label() } </span>
-            </>
-        }
-    } else {
-        html! {
-            <span class="ml-3 block truncate"> { "Select" } </span>
-        }
-    };
+    let current = (*selected).as_ref().map_or_else(
+        || {
+            html! {
+                <span class="ml-3 block truncate"> { "Select" } </span>
+            }
+        },
+        |selected| {
+            let icon = selected.icon().unwrap_or_default();
+            html! {
+                <>
+                    { icon }
+                    <span class="ml-3 block truncate"> { selected.label() } </span>
+                </>
+            }
+        },
+    );
 
     let search = if props.filter {
         html! {
